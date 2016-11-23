@@ -6,7 +6,6 @@ public class GameMain {
 	// Flag for active player
 	private static Player currentPlayer = Player.X;
 
-
 	public static void main(String[] args) {
 
 		String winner = "";
@@ -18,8 +17,7 @@ public class GameMain {
 		eingabehilfe.fuelleInt();
 		eingabehilfe.ausgeben();
 		System.out.println("\n\n");
-		
-		
+
 		Feld spielfeld = new Feld();
 		spielfeld.fuelleEmpty();
 
@@ -45,14 +43,16 @@ public class GameMain {
 					switchCurrentPlayer();
 					sc.next();
 				}
-				
-				//check for win 
-				 winner = WinningConditions.checkHorizontal(spielfeld.getFeld(), 0);
-				if (winner != ""){
-				System.out.println("Spieler gewinnt " + winner); 
-				break;
-				};
+
+				// check for win
+				//winner = WinningConditions.checkHorizontal(spielfeld.getFeld(), 0);
+				winner = WinningConditions.checkDiagonal(spielfeld.getFeld());
+				if (winner != "") {
+					System.out.println("Spieler gewinnt " + winner);
+					break;
+				}
 			}
+
 			// SwitchPlayer
 			switchCurrentPlayer();
 		} while (true);
