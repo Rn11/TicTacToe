@@ -26,9 +26,39 @@ public class WinningConditions {
 		return draw;
 	}
 
-	public static String checkForWin(String _winner) {
-
+	public static String checkForWin(String[] field) {
 		String winner = "";
+		winner = checkHorizontal(field, 0);
+		if (winner != "") {
+			return winner;// = checkHorizontal(field, 0);
+		}
+		winner = checkHorizontal(field, 3);
+		if (winner != "") {
+			return winner; //winner = checkHorizontal(field, 3);
+		}
+		winner = checkHorizontal(field, 6);
+		if (winner != "") {
+			return winner;// = checkHorizontal(field, 6);
+		}
+		
+		winner = checkVertical(field, 0);
+		if (winner != "") {
+			return winner;
+		}
+		winner = checkVertical(field, 1);
+		if (winner != "") {
+			return winner;
+		}
+		winner = checkVertical(field, 2);
+		if (winner != "") {
+			return winner;
+		}
+		
+		winner = checkDiagonal(field);
+		if (checkDiagonal(field) != "") {
+			return winner;
+		}
+
 		return winner;
 	}
 
@@ -37,14 +67,13 @@ public class WinningConditions {
 		String activeMarker = "";
 		int markerCounter = 0;
 
-		activeMarker = field[0 + offset];
+		if (field[0 + offset] != " ") {
+			activeMarker = field[0 + offset];
+		}
 
-		for (int cell = 0; cell < 3; cell++) {
-
-			if ((field[cell] != " " && field[cell] != null) && (field[cell] == "X" || field[cell] == "O")
-					&& activeMarker != " ") {
-				if ((cell + offset) != (3 + offset) && activeMarker == field[cell]) {
-					activeMarker = field[cell];
+		for (int cell = (0 + offset); cell < (3 + offset); cell++) {
+			if (field[cell] != " " && field[cell] != null) {
+				if (activeMarker == field[cell]) {
 					markerCounter++;
 				}
 			}
@@ -52,12 +81,11 @@ public class WinningConditions {
 		if (markerCounter == 3) {
 			winner = activeMarker;
 		}
-
 		return winner;
 	}
 
 	/*
-	 * check for diagonal win (use stepsize 4 in the for-loop) 2 for loops (1
+	 * check for diagonal win (use stepsize 3 in the for-loop) 2 for loops (1
 	 * top left to right bottom & 1 top right to left bottom)
 	 */
 	public static String checkDiagonal(String[] field) {
@@ -65,15 +93,15 @@ public class WinningConditions {
 		String activeMarker = "";
 		int markerCounter = 0;
 
-		activeMarker = field[0];
+		if (field[0] != " ") {
+			activeMarker = field[0];
+		}
 
 		// top left to right bottom
-		for (int cell = 0; cell < 9; cell += 2) {
+		for (int cell = 0; cell < 7; cell += 4) {
 
-			if ((field[cell] != " " && field[cell] != null) && (field[cell] == "X" || field[cell] == "O")
-					&& activeMarker != " ") {
+			if (field[cell] != " " && field[cell] != null) {
 				if (activeMarker == field[cell]) {
-					activeMarker = field[cell];
 					markerCounter++;
 				}
 			}
@@ -82,6 +110,7 @@ public class WinningConditions {
 		// if marker was three times the same, player (=marker) has won
 		if (markerCounter == 3) {
 			winner = activeMarker;
+			return winner;
 		}
 
 		else {
@@ -92,13 +121,14 @@ public class WinningConditions {
 
 		// top right to left bottom
 		// get marker from new position
-		activeMarker = field[2];
+		if (field[2] != " ") {
+			activeMarker = field[2];
+		}
+
 		for (int cell = 2; cell < 7; cell += 2) {
 
-			if ((field[cell] != " " && field[cell] != null) && (field[cell] == "X" || field[cell] == "O")
-					&& activeMarker != " ") {
+			if (field[cell] != " " && field[cell] != null) {
 				if (activeMarker == field[cell]) {
-					activeMarker = field[cell];
 					markerCounter++;
 				}
 			}
@@ -110,4 +140,29 @@ public class WinningConditions {
 
 		return winner;
 	}
+
+	public static String checkVertical(String[] field, int offset) {
+		String winner = "";
+		String activeMarker = "";
+		int markerCounter = 0;
+
+		if (field[0 + offset] != " ") {
+			activeMarker = field[0 + offset];
+		}
+
+		for (int cell = (0 + offset); cell < (7 + offset); cell += 3) {
+			if (field[cell] != " " && field[cell] != null) {
+				if (activeMarker == field[cell]) {
+					markerCounter++;
+				}
+			}
+		}
+
+		// if marker was three times the same, player (=marker) has won
+		if (markerCounter == 3) {
+			winner = activeMarker;
+		}
+		return winner;
+	}
+
 }

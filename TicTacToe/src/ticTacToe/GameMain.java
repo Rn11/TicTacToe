@@ -45,9 +45,11 @@ public class GameMain {
 				}
 
 				// check for win
-				//winner = WinningConditions.checkHorizontal(spielfeld.getFeld(), 0);
-				winner = WinningConditions.checkDiagonal(spielfeld.getFeld());
+				winner = WinningConditions.checkForWin(spielfeld.getFeld());
+
+				//winner = WinningConditions.checkDiagonal(spielfeld.getFeld());
 				if (winner != "") {
+					spielfeld.ausgeben();
 					System.out.println("Spieler gewinnt " + winner);
 					break;
 				}
