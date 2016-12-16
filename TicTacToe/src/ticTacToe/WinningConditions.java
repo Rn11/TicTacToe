@@ -98,7 +98,7 @@ public class WinningConditions {
 		}
 
 		// top left to right bottom
-		for (int cell = 0; cell < 7; cell += 4) {
+		for (int cell = 0; cell < 9; cell += 4) {
 
 			if (field[cell] != " " && field[cell] != null) {
 				if (activeMarker == field[cell]) {
