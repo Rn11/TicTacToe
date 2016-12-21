@@ -1,5 +1,4 @@
 package ticTacToe;
-
 import java.util.*;
 
 public class Computer {

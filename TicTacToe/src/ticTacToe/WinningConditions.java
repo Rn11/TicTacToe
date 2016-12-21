@@ -1,46 +1,41 @@
 package ticTacToe;
 
 public class WinningConditions {
-
-	// Check for draw (if all fields are set)
+	// Pruefe auf Unentschieden (wenn alle Felder voll sind)
 	public static Boolean checkForDraw(String[] field) {
-		// flag for draw
+		// flag fuer unentschieden
 		boolean draw = false;
-		// integer to count how many cells are written
+		// Integer um zu ermitteln, wie viele Zellen voll sind
 		int cellStatusCounter = 0;
-
-		// go through all cells
+		// gehe durch alle Zellen
 		for (int cell = 0; cell < 9; cell++) {
-
-			// if current cell is not empty, increment counter by 1
-			if (field[cell] != " ") {
+			// Wenn die Zelle nicht leer ist, inkrementiere den counter
+			if (field[cell] != " ")
 				cellStatusCounter++;
-			}
-			// if counter is 9, all fields are full so the game is draw
-			if (cellStatusCounter == 9) {
+			// wenn cellStatusCounter == 9 ist, muessen alle Zellen voll sein
+			if (cellStatusCounter == 9)
 				draw = true;
-			} else {
+			else
 				draw = false;
-			}
 		}
 		return draw;
 	}
 
 	public static String checkForWin(String[] field) {
 		String winner = "";
+		// Liefere winner zurück, falls dieser nicht leer ist
 		winner = checkHorizontal(field, 0);
 		if (winner != "") {
-			return winner;// = checkHorizontal(field, 0);
+			return winner;
 		}
 		winner = checkHorizontal(field, 3);
 		if (winner != "") {
-			return winner; //winner = checkHorizontal(field, 3);
+			return winner;
 		}
 		winner = checkHorizontal(field, 6);
 		if (winner != "") {
-			return winner;// = checkHorizontal(field, 6);
+			return winner;
 		}
-		
 		winner = checkVertical(field, 0);
 		if (winner != "") {
 			return winner;
@@ -53,12 +48,11 @@ public class WinningConditions {
 		if (winner != "") {
 			return winner;
 		}
-		
 		winner = checkDiagonal(field);
 		if (checkDiagonal(field) != "") {
 			return winner;
 		}
-
+		// Ansonsten liefere winner zurueck
 		return winner;
 	}
 
@@ -67,53 +61,47 @@ public class WinningConditions {
 		String activeMarker = "";
 		int markerCounter = 0;
 
-		if (field[0 + offset] != " ") {
-			activeMarker = field[0 + offset];
-		}
+		// merke den Wert der ersten Zelle der Zeile
+		activeMarker = field[0 + offset];
 
 		for (int cell = (0 + offset); cell < (3 + offset); cell++) {
+			// wenn Aktuelle Zelle nicht leer ist
 			if (field[cell] != " " && field[cell] != null) {
+				// und dem gemerkten Wert entspricht
 				if (activeMarker == field[cell]) {
+					// zaehle markerCounter hoch
 					markerCounter++;
 				}
 			}
 		}
+		// wenn das Zeichen 3 mal gesehen wurde, ist der Gewinner
+		// gleich dem gemerkten Zeichen
 		if (markerCounter == 3) {
 			winner = activeMarker;
 		}
 		return winner;
 	}
 
-	/*
-	 * check for diagonal win (use stepsize 3 in the for-loop) 2 for loops (1
-	 * top left to right bottom & 1 top right to left bottom)
-	 */
 	public static String checkDiagonal(String[] field) {
 		String winner = "";
 		String activeMarker = "";
 		int markerCounter = 0;
 
-		if (field[0] != " ") {
-			activeMarker = field[0];
-		}
+		activeMarker = field[0];
 
-		// top left to right bottom
+		// oben links nach unten rechts
 		for (int cell = 0; cell < 9; cell += 4) {
-
 			if (field[cell] != " " && field[cell] != null) {
 				if (activeMarker == field[cell]) {
 					markerCounter++;
 				}
 			}
 		}
-
 		// if marker was three times the same, player (=marker) has won
 		if (markerCounter == 3) {
 			winner = activeMarker;
 			return winner;
-		}
-
-		else {
+		} else {
 			// reset marker counter for 2nd for-loop (if first one detected no
 			// win)
 			markerCounter = 0;
@@ -121,9 +109,7 @@ public class WinningConditions {
 
 		// top right to left bottom
 		// get marker from new position
-		if (field[2] != " ") {
-			activeMarker = field[2];
-		}
+		activeMarker = field[2];
 
 		for (int cell = 2; cell < 7; cell += 2) {
 
@@ -133,11 +119,9 @@ public class WinningConditions {
 				}
 			}
 		}
-
 		if (markerCounter == 3) {
 			winner = activeMarker;
 		}
-
 		return winner;
 	}
 
@@ -146,9 +130,7 @@ public class WinningConditions {
 		String activeMarker = "";
 		int markerCounter = 0;
 
-		if (field[0 + offset] != " ") {
-			activeMarker = field[0 + offset];
-		}
+		activeMarker = field[0 + offset];
 
 		for (int cell = (0 + offset); cell < (7 + offset); cell += 3) {
 			if (field[cell] != " " && field[cell] != null) {
@@ -164,5 +146,4 @@ public class WinningConditions {
 		}
 		return winner;
 	}
-
 }
